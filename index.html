@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#190b1e">
+  <title>A little apology, just for you ♡</title>
+  <meta name="description" content="A little page made with love, honesty, and an apology.">
+  <style>
+    :root{--night:#170b20;--plum:#32152f;--rose:#ff7caa;--pink:#ffb4ce;--cream:#fff4f6;--muted:#d9bfce;--line:rgba(255,220,235,.19);--glass:rgba(35,14,39,.72);--gold:#ffe0a8}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;color:var(--cream);font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,sans-serif;background:radial-gradient(ellipse at 15% 5%,#512346 0%,transparent 37%),radial-gradient(ellipse at 90% 75%,#351638 0%,transparent 40%),linear-gradient(145deg,#100916,#251027 54%,#170b20);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.14;background-image:radial-gradient(#fff 0.7px,transparent .7px);background-size:25px 25px;z-index:0}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    .app{position:relative;z-index:1;min-height:100vh}
+    .screen{display:none;min-height:100vh;padding:28px 18px 44px;animation:appear .7s ease both}
+    .screen.active{display:flex;flex-direction:column;align-items:center}
+    @keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+    .eyebrow{letter-spacing:.22em;text-transform:uppercase;font-size:.72rem;color:var(--pink);font-weight:800}
+    .script{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.035em}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(2.7rem,8vw,5.6rem);line-height:.97;margin:15px 0 22px}
+    h2{font-size:clamp(2rem,6vw,3.65rem);line-height:1.02;margin:12px 0 20px}
+    p{line-height:1.82;color:#f4e3eb}
+    .center{text-align:center}
+    .muted{color:var(--muted)}
+    .btn{border:1px solid rgba(255,220,235,.35);border-radius:999px;padding:13px 21px;background:rgba(255,255,255,.07);color:var(--cream);transition:transform .2s,background .2s,border-color .2s;display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none}
+    .btn:hover{transform:translateY(-2px);background:rgba(255,124,170,.17);border-color:var(--rose)}
+    .btn.primary{background:linear-gradient(110deg,#ff6e9e,#e94e88);border-color:transparent;color:#2b0e22;font-weight:800;box-shadow:0 9px 30px #e94e8830}
+    .btn.small{padding:9px 15px;font-size:.9rem}
+    .button-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:25px}
+    .glass{background:var(--glass);border:1px solid var(--line);box-shadow:0 20px 70px #00000028;backdrop-filter:blur(18px);border-radius:25px}
+    /* Opening */
+    #welcome{position:relative;justify-content:center;overflow:hidden;cursor:pointer;text-align:center}
+    .welcome-content{width:min(760px,100%);position:relative;z-index:2;padding:34px 18px}
+    .tiny-heart{font-size:3.1rem;display:inline-block;color:var(--rose);filter:drop-shadow(0 0 18px #ff72ab70);animation:heartbeat 1.6s ease-in-out infinite}
+    @keyframes heartbeat{0%,100%{transform:scale(1)}35%{transform:scale(1.13)}55%{transform:scale(.98)}}
+    #welcome h1 span{color:var(--pink);font-style:italic}
+    .tap{margin-top:44px;display:inline-flex;align-items:center;gap:11px;color:#ffe3ee;letter-spacing:.11em;text-transform:uppercase;font-size:.72rem;animation:pulse 1.8s infinite}
+    .tap:after{content:"↓";font-size:1.2rem}
+    @keyframes pulse{50%{opacity:.5}}
+    .rain-heart{position:fixed;z-index:1;top:-8vh;pointer-events:none;color:var(--rose);opacity:0;animation:fall linear forwards;text-shadow:0 0 12px #ff7caa55}
+    @keyframes fall{0%{transform:translate3d(0,-5vh,0) rotate(0);opacity:0}12%{opacity:.8}88%{opacity:.65}100%{transform:translate3d(var(--drift),112vh,0) rotate(340deg);opacity:0}}
+    /* Photo intro */
+    .intro-head{max-width:780px;margin:25px auto 20px}
+    .photo-grid{width:min(900px,100%);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:18px auto 4px}
+    .photo-frame{position:relative;min-height:260px;aspect-ratio:4/4.2;border-radius:25px;overflow:hidden;border:1px solid #ffbfd34a;background:linear-gradient(150deg,#522545,#271429 67%,#3a203e);box-shadow:0 18px 45px #0003}
+    .photo-frame img{display:none;width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
+    .photo-frame.has-image img{display:block}
+    .photo-frame.has-image .photo-placeholder{display:none}
+    .photo-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 40%,#ff8eb528,transparent 44%)}
+    .photo-placeholder .big-heart{font-size:3.5rem;color:#ff8ab3;animation:heartbeat 1.8s infinite}
+    .photo-placeholder strong{font-family:Georgia,serif;font-size:1.45rem;margin-top:13px;font-weight:400}
+    .photo-placeholder small{color:#dbc2d0;line-height:1.5;margin-top:8px}
+    .photo-label{position:absolute;z-index:2;left:13px;bottom:13px;padding:8px 12px;background:#170b20b8;border:1px solid #ffffff27;border-radius:999px;font-size:.76rem;backdrop-filter:blur(8px)}
+    .hint{font-size:.84rem;color:#d7bdcc;text-align:center;margin:13px auto 0;line-height:1.7}
+    /* Spotify */
+    .music-dock{width:min(570px,100%);margin:21px auto 0;padding:13px 15px;border:1px solid var(--line);background:#1d1023;border-radius:19px}
+    .music-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+    .music-title{font-size:.9rem;font-weight:700}
+    .music-status{color:var(--pink);font-size:.75rem}
+    #spotify-embed{width:100%;min-height:80px;border-radius:12px;overflow:hidden}
+    .music-fallback{font-size:.8rem;line-height:1.6;color:#d8c3cf;margin:8px 0 0}
+    .music-fallback a{color:#ffb4ce}
+    /* Journey/nav */
+    .journey-head{width:min(1000px,100%);display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px auto 24px}
+    .brand{font-family:Georgia,serif;color:var(--pink);font-size:1.16rem}
+    .progress{display:flex;align-items:center;gap:6px}
+    .dot{width:8px;height:8px;border-radius:50%;background:#715065}
+    .dot.active{background:var(--rose);box-shadow:0 0 13px #ff7caa80}
+    .section-wrap{width:min(850px,100%);margin:auto}
+    .heart-orbit{margin:0 auto 17px;width:74px;height:74px;border-radius:50%;display:grid;place-items:center;border:1px solid #ffaccd66;background:radial-gradient(circle,#ff8ab326,transparent 69%);box-shadow:0 0 55px #ff7caa12;position:relative}
+    .heart-orbit:before,.heart-orbit:after{content:"";position:absolute;border:1px solid #ffaccd32;border-radius:50%;inset:-8px;animation:orbit 8s linear infinite}
+    .heart-orbit:after{inset:-16px;animation-direction:reverse;opacity:.55}
+    .heart-orbit span{font-size:2rem;animation:heartbeat 1.6s infinite}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+    .section-kicker{text-align:center;color:var(--pink);font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;font-weight:800}
+    .letter-card{padding:clamp(22px,5vw,42px);margin-top:20px}
+    .couple-photo{width:min(320px,100%);margin:0 auto 25px}
+    .couple-photo .photo-frame{min-height:220px;aspect-ratio:4/3}
+    .letter-text{cursor:pointer;outline:none;border-radius:16px;padding:4px 10px;transition:background .2s}
+    .letter-text:hover,.letter-text:focus{background:#ff8ab30e}
+    .letter-text p{font-size:1.01rem;white-space:normal}
+    .letter-text .tap-hint{color:#ffacc9;font-size:.82rem;text-align:center;letter-spacing:.04em;margin-bottom:5px}
+    .music-note{color:#ffbad1;font-size:.82rem;text-align:center;margin:14px 0 0}
+    .reasons-card{padding:clamp(23px,5vw,46px);margin-top:18px}
+    .highlight-heading{display:inline-block;color:#fff0a9;padding:0 .05em .13em;background:linear-gradient(transparent 64%,#ff6e9e4a 64%);text-shadow:0 0 23px #ff9abb42}
+    .reason{padding:18px 0;border-bottom:1px solid var(--line)}
+    .reason:last-of-type{border-bottom:0}
+    .reason h3{margin:0 0 8px;color:#ffc0d6;font-size:1.02rem}
+    .reason p{margin:0}
+    .end-line{text-align:center;color:#ffe1ec;font-family:Georgia,serif;font-size:1.35rem;line-height:1.55;margin:30px 0 0}
+    /* Private writing */
+    .private-card{padding:clamp(22px,5vw,40px);margin-top:18px}
+    .privacy-note{padding:13px 15px;border-radius:15px;background:#a7e7c40d;border:1px solid #a7e7c42e;color:#d6f7e5;font-size:.85rem;line-height:1.65;margin:17px 0}
+    textarea{resize:vertical;width:100%;min-height:185px;padding:16px;color:var(--cream);background:#1009169c;border:1px solid #ffbfd333;border-radius:15px;outline:none;line-height:1.7}
+    textarea:focus{border-color:#ff83b1}
+    textarea::placeholder{color:#ab91a2}
+    .small-note{font-size:.8rem;color:#cbb3c2;line-height:1.65}
+    /* Memory wall */
+    .memory-card{padding:clamp(22px,5vw,40px);margin-top:18px}
+    .memory-form{display:grid;grid-template-columns:1fr 145px;gap:10px;margin:20px 0 12px}
+    .memory-form input{min-width:0;padding:13px 14px;color:var(--cream);background:#1009169c;border:1px solid #ffbfd333;border-radius:13px;outline:none}
+    .memory-form input:focus{border-color:#ff83b1}
+    .memory-wall{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+    .memory-tile{padding:17px;border:1px solid #ffbed429;background:linear-gradient(145deg,#ff8ab30e,#ffffff05);border-radius:16px;min-height:100px}
+    .memory-tile .m-heart{color:#ff83b1;font-size:1.2rem}
+    .memory-tile p{margin:8px 0 0;line-height:1.6;font-family:Georgia,serif;font-size:1.02rem}
+    .memory-tile small{display:block;margin-top:7px;color:#c6a8ba;font-size:.76rem}
+    .empty-memory{grid-column:1/-1;text-align:center;padding:30px 12px;border:1px dashed #ffbed43b;border-radius:16px;color:#d7bdcc;line-height:1.7}
+    /* Countdown and voice */
+    .count-card{padding:clamp(23px,5vw,43px);text-align:center;margin-top:18px}
+    .timer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:27px 0}
+    .time-unit{padding:20px 8px;border-radius:18px;background:linear-gradient(155deg,#ff7caa18,#ffffff05);border:1px solid #ffbed430}
+    .time-unit strong{display:block;font-size:clamp(1.7rem,5vw,3rem);font-variant-numeric:tabular-nums;color:#fff0f6;line-height:1.1}
+    .time-unit span{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#ffb9d0;margin-top:9px}
+    .date-pill{display:inline-block;padding:10px 15px;border:1px solid #ffe0a852;background:#ffe0a80d;color:var(--gold);border-radius:999px;font-size:.89rem}
+    .voice-card{width:min(680px,100%);padding:clamp(24px,5vw,45px);margin:23px auto;text-align:center}
+    .voice-icon{font-size:3rem;margin:4px 0 14px}
+    audio{width:100%;margin-top:20px;filter:sepia(.12) saturate(.8)}
+    .voice-missing{color:#f5cdde;font-size:.87rem;line-height:1.7;margin-top:15px}
+    .footer-note{color:#9b7b90;font-size:.76rem;text-align:center;margin:28px 0 0}
+    /* Gate overlay */
+    .gate{display:none;position:fixed;z-index:20;inset:0;align-items:center;justify-content:center;padding:22px;background:#09050ac7;backdrop-filter:blur(15px);animation:appear .5s ease both}
+    .gate.show{display:flex}
+    .gate-card{width:min(480px,100%);padding:34px 25px;text-align:center;background:linear-gradient(145deg,#47203d,#1b0e22);border:1px solid #ffb4ce57;border-radius:27px;box-shadow:0 24px 90px #0009}
+    .gate-card h2{font-size:2.4rem;margin:13px 0}
+    .gate-card p{font-size:.95rem}
+    .gate-buttons{display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+    @media(max-width:620px){.screen{padding:20px 14px 34px}.photo-grid{gap:10px}.photo-frame{min-height:200px;border-radius:19px}.photo-placeholder strong{font-size:1.15rem}.photo-placeholder small{font-size:.74rem}.journey-head{margin-bottom:18px}.brand{font-size:1rem}.progress{gap:4px}.dot{width:6px;height:6px}.memory-form{grid-template-columns:1fr}.memory-wall{grid-template-columns:1fr}.timer{gap:6px}.time-unit{padding:16px 4px}.time-unit span{font-size:.62rem}.music-dock{padding:11px}.music-title{font-size:.82rem}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <!-- Opening heart-rain screen -->
+  <section class="screen active" id="welcome" aria-label="Welcome" tabindex="0">
+    <div class="welcome-content">
+      <div class="tiny-heart">♥</div>
+      <div class="eyebrow">a little page, made with love</div>
+      <h1 class="script">For you,<br><span>my favourite person.</span></h1>
+      <p class="muted" style="max-width:480px;margin:0 auto">I have some things I want to say gently, honestly, and from my heart.</p>
+      <div class="tap">Tap anywhere to continue</div>
+    </div>
+  </section>
+
+  <!-- Photos + first music segment -->
+  <section class="screen" id="intro" aria-label="Our photos">
+    <div class="intro-head center">
+      <div class="eyebrow">just us, for a moment</div>
+      <h2 class="script">Little pieces of <em>us</em> ♡</h2>
+      <p class="muted">Before you read anything, take a little breath. This page is here to say sorry, not to ask you to feel anything before you're ready.</p>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-frame" data-photo="photo-1.jpg">
+        <img src="assets/photo-1.jpg" alt="A favourite photo of us, first picture">
+        <div class="photo-placeholder"><div class="big-heart">♡</div><strong>One of our moments</strong><small>Add your first photo as<br><b>assets/photo-1.jpg</b></small></div>
+        <div class="photo-label">a little memory</div>
+      </div>
+      <div class="photo-frame" data-photo="photo-2.jpg">
+        <img src="assets/photo-2.jpg" alt="A favourite photo of us, second picture">
+        <div class="photo-placeholder"><div class="big-heart">♥</div><strong>Another piece of us</strong><small>Add your second photo as<br><b>assets/photo-2.jpg</b></small></div>
+        <div class="photo-label">my favourite people: us</div>
+      </div>
+    </div>
+    <p class="hint">The photo frames will show your pictures once you add them to the <code>assets</code> folder.</p>
+    <div class="music-dock">
+      <div class="music-top"><span class="music-title">♫ A song for this moment</span><span class="music-status" id="music-status">Trying to start…</span></div>
+      <div id="spotify-embed" aria-label="Spotify music player"></div>
+      <p class="music-fallback">Music is played through Spotify. If it doesn't start automatically, press play in the player above. <a href="https://open.spotify.com/track/3mLhme6vdUX2wTgv7cVUtb?si=6db455033c2244d0" target="_blank" rel="noopener">Open song in Spotify ↗</a></p>
+    </div>
+    <div class="button-row"><button class="btn small" id="intro-next">Skip song & continue →</button></div>
+  </section>
+
+  <!-- The five-section journey -->
+  <section class="screen" id="journey" aria-label="Our letter and memories">
+    <header class="journey-head">
+      <div class="brand">for my person <span aria-hidden="true">♡</span></div>
+      <div class="progress" aria-label="Section progress" id="progress-dots"></div>
+      <button class="btn small" id="exit-journey" title="Return to the beginning">Exit ↗</button>
+    </header>
+
+    <div class="section-wrap" id="section-1" data-section="1">
+      <div class="heart-orbit"><span>♥</span></div>
+      <div class="section-kicker">section 01 · from my heart</div>
+      <h2 class="script center">I'm really, really sorry.</h2>
+      <div class="letter-card glass">
+        <div class="couple-photo">
+          <div class="photo-frame" data-photo="couple.jpg">
+            <img src="assets/couple.jpg" alt="A photo of us together">
+            <div class="photo-placeholder"><div class="big-heart">♡</div><strong>Our little world</strong><small>Add a couple photo as<br><b>assets/couple.jpg</b></small></div>
+          </div>
+        </div>
+        <div class="letter-text" id="letter-text" role="button" tabindex="0" aria-label="Tap this letter to play its song">
+          <p class="tap-hint">♡ Tap this letter to play the song ♡</p>
+          <p>Baby, I know you are suffering through a really difficult part of your life that you aren't comfortable sharing. That's fine. I can only help when I understand a little of the context, but I also know I can make you happy by doing something funny, spending time with you, acting dumb around you, or doing anything that feels right if it might make you feel a little better. I will be ready to try.</p>
+          <p>I really do remember when your period started. If I were someone who didn't know, I could search for it; I just wanted to be honest about that. On that night when you got upset, I was waiting for you on Discord because I wanted to apologise and try my best to make things better again. Around 3 o'clock, I wanted to check what you were doing, so I opened your ID and saw the text from that guy, Oldiee. I think his name was Aditya.</p>
+          <p>First, I'm sorry for reading those messages. I shouldn't have done that. I read them and understood more of the situation, and I could see that his words were rude and meant to hurt you. I realise that may have affected you. After that, I was scared that doing something in that moment might take things in the wrong direction and irritate you even more. So I thought I should stay silent for a while and wait until your mood felt a little better, then try again. After Aryan said you had exams, I thought I shouldn't disturb you.</p>
+          <p>I never intended to make you feel alone. I've said it before, and I'm saying it again, baby: I'm always with you, and I'm always ready to support you in any condition, no matter what. I have so, so many reasons to stay with you and love you.</p>
+          <p>I am really, really sorry. Please forgive me, mine — <em>pressure cooker, miss detective, ladli, sundari, patti parmeshwar (my favourite)</em>… and <em>bauni</em>. I know you don't like that last nickname; I didn't mean to make you uncomfortable, and that's why I stopped using it. Same for “kaam chor.”</p>
+        </div>
+        <p class="music-note" id="letter-music-note">The second song will start when you tap the letter. ♫</p>
+      </div>
+      <div class="button-row"><button class="btn" data-prev>← Back</button><button class="btn primary" data-next>Next: the reasons ♡</button></div>
+    </div>
+
+    <div class="section-wrap" id="section-2" data-section="2" hidden>
+      <div class="heart-orbit"><span>♥</span></div>
+      <div class="section-kicker">section 02 · all the little things</div>
+      <div class="reasons-card glass">
+        <h2 class="script center"><span class="highlight-heading">THE REASONS WHY I LOVE YOU</span></h2>
+        <div class="reason"><h3>♡ Your cuteness</h3><p>Honestly, when I first fell for you, it wasn't just because of your looks. It was the way you talked to me and your small, cute gestures. They melted me every time. Whenever I see that cute side of you, no matter how angry I am or how much blah blah I say, you melt me and make me fall for you again and again. It can make my whole month.</p></div>
+        <div class="reason"><h3>♡ The way you care</h3><p>I get sympathy from almost everyone, but I don't know how to explain it: whether your sympathy is soft or strong, it makes me feel like I have someone special who thinks about me, someone who cares about me. It hits me so deeply that I start feeling happier and everything feels a little more okay.</p></div>
+        <div class="reason"><h3>♡ Your childish side</h3><p>I like it when, sometimes — only sometimes, samjhi aap? — you show your childish side. It changes my mood and my thoughts, and I love that side of you.</p></div>
+        <div class="reason"><h3>♡ The names you call me</h3><p>Sometimes when you call me something special, like “sir ji” or “sweetheart.” One time, I remember you called me “baby.” I said it was cringe, but I really liked it. I was so happy that I didn't even know how to react.</p></div>
+        <p class="end-line">There are infinite reasons<br>that I will love you, forever. ♡</p>
+      </div>
+      <div class="button-row"><button class="btn" data-prev>← Back</button><button class="btn primary" data-next>Next: your space ♡</button></div>
+    </div>
+
+    <div class="section-wrap" id="section-3" data-section="3" hidden>
+      <div class="heart-orbit"><span>♥</span></div>
+      <div class="section-kicker">section 03 · your space, your words</div>
+      <h2 class="script center">A page that's yours.</h2>
+      <div class="private-card glass">
+        <p>In this section, I'm not writing anything for you. I just want you to write why you love me, even when I make that many mistakes. But please don't feel that you have to write anything here.</p>
+        <p>If you don't want to write it here, you can write it on paper or in your personal DMs — somewhere I can't access.</p>
+        <p>If you do write something here, thank you so much for sharing it with yourself. I only asked because I believe our love can conquer even the worst situations. ♡</p>
+        <div class="privacy-note"><strong>🔒 Your words stay yours.</strong><br>This box is not sent to me and is not saved by this website. When you leave this section, the text is cleared. You can also leave it blank.</div>
+        <label for="private-words" class="small-note">Only write here if it feels comfortable.</label>
+        <textarea id="private-words" placeholder="Your words, just for you… nothing here will be saved."></textarea>
+        <p class="small-note" id="private-counter">This page has no submit button. Your writing is only in this open page.</p>
+      </div>
+      <div class="button-row"><button class="btn" data-prev>← Back</button><button class="btn primary" data-next>Next: our memories ♡</button></div>
+    </div>
+
+    <div class="section-wrap" id="section-4" data-section="4" hidden>
+      <div class="heart-orbit"><span>♥</span></div>
+      <div class="section-kicker">section 04 · let's make it together</div>
+      <h2 class="script center">THE WALL OF MEMORY</h2>
+      <div class="memory-card glass">
+        <p>I think this is a mutual topic, so we should create it together. Here, we can highlight our favourite moments in the relationship — the tiny ones, the silly ones, and the ones we never want to forget.</p>
+        <div class="memory-form">
+          <input id="memory-input" type="text" maxlength="180" placeholder="A moment we love remembering…" aria-label="Memory to add">
+          <button id="add-memory" class="btn primary">Add memory +</button>
+        </div>
+        <p class="small-note">Add memories together on the same device. They stay in this open visit only and aren't uploaded or shared between devices.</p>
+        <div class="memory-wall" id="memory-wall"><div class="empty-memory" id="empty-memory">Your wall is waiting for your moments. ♡<br><small>Add the first memory above.</small></div></div>
+      </div>
+      <div class="button-row"><button class="btn" data-prev>← Back</button><button class="btn primary" data-next>Next: one date ♡</button></div>
+    </div>
+
+    <div class="section-wrap" id="section-5" data-section="5" hidden>
+      <div class="heart-orbit"><span>♥</span></div>
+      <div class="section-kicker">section 05 · counting down</div>
+      <div class="count-card glass">
+        <div class="eyebrow">one date on our little calendar</div>
+        <h2 class="script">Until <em>24·12·2026</em></h2>
+        <p class="muted">A little countdown to a day I wanted to mark with you.</p>
+        <div class="timer" aria-label="Countdown timer">
+          <div class="time-unit"><strong id="days">000</strong><span>days</span></div>
+          <div class="time-unit"><strong id="hours">00</strong><span>hours</span></div>
+          <div class="time-unit"><strong id="minutes">00</strong><span>minutes</span></div>
+          <div class="time-unit"><strong id="seconds">00</strong><span>seconds</span></div>
+        </div>
+        <div class="date-pill" id="countdown-message">Until December 24, 2026 ♡</div>
+      </div>
+      <div class="button-row"><button class="btn" data-prev>← Back</button><button class="btn primary" id="finish-journey">Finish & hear my voice ♡</button></div>
+    </div>
+  </section>
+
+  <!-- Voice note comes after the five sections -->
+  <section class="screen" id="voice" aria-label="Voice note">
+    <div class="section-wrap" style="margin:auto">
+      <div class="heart-orbit"><span>♥</span></div>
+      <div class="section-kicker">one last thing</div>
+      <div class="voice-card glass">
+        <div class="voice-icon">🎙️</div>
+        <h2 class="script">Something in my own voice.</h2>
+        <p>I wanted you to hear this from me, not just read it on a screen.</p>
+        <audio id="voice-audio" controls preload="metadata">
+          <source src="assets/voice-note.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <p class="voice-missing" id="voice-missing">Add your recording as <b>assets/voice-note.mp3</b> in the website folder, then publish the updated site.</p>
+        <div class="button-row"><button class="btn" id="restart">Back to the beginning ↺</button></div>
+      </div>
+      <p class="footer-note">Made with honesty, a soft heart, and lots of love. ♡</p>
+    </div>
+  </section>
+</div>
+
+<!-- Shown after the first 30-second song segment -->
+<div class="gate" id="song-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <div class="tiny-heart">♡</div>
+    <div class="eyebrow">when you're ready</div>
+    <h2 class="script" id="gate-title">ESC or continue?</h2>
+    <p>Take your time. You don't have to rush through anything here.</p>
+    <div class="gate-buttons"><button class="btn" id="gate-esc">ESC</button><button class="btn primary" id="gate-continue">Continue ♡</button></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const screens = [...document.querySelectorAll('.screen')];
+  let activeScreen = 'welcome';
+  let currentSection = 1;
+  let spotifyController = null;
+  let spotifyReady = false;
+  let musicMode = 'off';
+  let lastTrackPosition = 0;
+  let memoryCount = 0;
+  const INTRO_TRACK = 'spotify:track:3mLhme6vdUX2wTgv7cVUtb';
+  const LETTER_TRACK = 'spotify:track:0tW2gwaRzFQQrgr2UCO56G';
+  const INTRO_START = 36, INTRO_END = 66;
+  const LETTER_START = 47, LETTER_END = 72;
+
+  function showScreen(id) {
+    screens.forEach(s => s.classList.toggle('active', s.id === id));
+    activeScreen = id;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function createHearts(amount=20) {
+    const glyphs = ['♥','♡','❤','❥'];
+    for (let i=0;i<amount;i++) {
+      const h = document.createElement('span');
+      h.className = 'rain-heart';
+      h.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.fontSize = (10+Math.random()*22)+'px';
+      h.style.animationDuration = (5+Math.random()*9)+'s';
+      h.style.animationDelay = (Math.random()*6)+'s';
+      h.style.setProperty('--drift', (Math.random()*140-70)+'px');
+      document.body.appendChild(h);
+      h.addEventListener('animationend',()=>h.remove());
+    }
+  }
+  createHearts(42);
+  setInterval(()=>createHearts(9),2200);
+
+  // Gracefully fall back to Spotify's visible play control if autoplay is blocked.
+  function startSpotifyMode(mode) {
+    musicMode = mode;
+    lastTrackPosition = 0;
+    const status = $('music-status');
+    if (status) status.textContent = 'Starting song…';
+    if (!spotifyController || !spotifyReady) {
+      if (status) status.textContent = 'Press play below';
+      return;
+    }
+    const track = mode === 'intro' ? INTRO_TRACK : LETTER_TRACK;
+    const start = mode === 'intro' ? INTRO_START : LETTER_START;
+    try {
+      spotifyController.loadEntity(track, false, start);
+      // The iFrame API supports startAt for eligible media and seek() for seeking.
+      // Use both as a best effort; browser autoplay policies may still require a click.
+      window.setTimeout(() => {
+        if (!spotifyController || musicMode !== mode) return;
+        try { spotifyController.seek(start); spotifyController.play(); } catch (_) {}
+      }, 700);
+      if (status) status.textContent = 'Spotify · if needed, press play';
+      if (mode === 'letter') $('letter-music-note').textContent = 'Trying to play 0:47–1:12, then repeat. Spotify may ask you to press play.';
+    } catch (_) {
+      if (status) status.textContent = 'Press play in Spotify';
+    }
+  }
+  window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    const element = $('spotify-embed');
+    const options = { width: '100%', height: '152', uri: INTRO_TRACK };
+    IFrameAPI.createController(element, options, (controller) => {
+      spotifyController = controller;
+      controller.addListener('ready', () => {
+        spotifyReady = true;
+        if (activeScreen === 'intro') startSpotifyMode('intro');
+      });
+      controller.addListener('playback_started', () => {
+        const status = $('music-status');
+        if (status) status.textContent = 'Now playing ♫';
+      });
+      controller.addListener('playback_update', (event) => {
+        if (!event || !event.data) return;
+        const position = Number(event.data.position || 0) / 1000;
+        if (position < lastTrackPosition - 3) lastTrackPosition = position; // a seek/restart
+        lastTrackPosition = position;
+        if (musicMode === 'intro' && position >= INTRO_END) {
+          musicMode = 'off';
+          try { controller.pause(); } catch (_) {}
+          $('song-gate').classList.add('show');
+        } else if (musicMode === 'letter' && position >= LETTER_END) {
+          // Loop only the requested segment of the second song.
+          try { controller.seek(LETTER_START); controller.play(); } catch (_) {}
+          lastTrackPosition = LETTER_START;
+        }
+      });
+    });
+  };
+
+  // First user gesture takes the visitor to the photo screen and starts song one.
+  function enterIntro() {
+    if (activeScreen !== 'welcome') return;
+    showScreen('intro');
+    startSpotifyMode('intro');
+  }
+  $('welcome').addEventListener('click', enterIntro);
+  $('welcome').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') enterIntro(); });
+  $('intro-next').addEventListener('click', () => {
+    $('song-gate').classList.add('show');
+    try { spotifyController?.pause(); } catch (_) {}
+    musicMode = 'off';
+  });
+  $('gate-continue').addEventListener('click', () => {
+    $('song-gate').classList.remove('show');
+    currentSection = 1; updateSection(); showScreen('journey');
+  });
+  $('gate-esc').addEventListener('click', () => {
+    $('song-gate').classList.remove('show');
+    try { spotifyController?.pause(); } catch (_) {}
+    musicMode = 'off';
+    showScreen('welcome');
+  });
+  $('exit-journey').addEventListener('click', () => {
+    $('private-words').value = '';
+    musicMode = 'off';
+    try { spotifyController?.pause(); } catch (_) {}
+    showScreen('welcome');
+  });
+
+  function updateSection() {
+    document.querySelectorAll('[data-section]').forEach(s => s.hidden = Number(s.dataset.section) !== currentSection);
+    $('progress-dots').innerHTML = '';
+    for (let i=1;i<=5;i++) {
+      const d=document.createElement('span'); d.className='dot'+(i===currentSection?' active':'');
+      d.setAttribute('aria-label','Section '+i); $('progress-dots').appendChild(d);
+    }
+    // Private writing has no persistence and disappears as soon as it is left.
+    if (currentSection !== 3) $('private-words').value = '';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('[data-next]').forEach(btn => btn.addEventListener('click',()=>{
+    if(currentSection<5){
+      if(currentSection===1 && musicMode==='letter') { musicMode='off'; try { spotifyController?.pause(); } catch (_) {} }
+      currentSection++; updateSection();
+    }
+  }));
+  document.querySelectorAll('[data-prev]').forEach(btn => btn.addEventListener('click',()=>{if(currentSection>1){currentSection--;updateSection();}}));
+  $('letter-text').addEventListener('click',()=>startSpotifyMode('letter'));
+  $('letter-text').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();startSpotifyMode('letter');}});
+  $('finish-journey').addEventListener('click',()=>{musicMode='off';try{spotifyController?.pause();}catch(_){}showScreen('voice');});
+  $('restart').addEventListener('click',()=>{ $('private-words').value=''; currentSection=1; updateSection(); showScreen('welcome'); });
+
+  // Memories are only held in the current page session, never uploaded or persisted.
+  $('add-memory').addEventListener('click',()=>{
+    const input=$('memory-input'); const value=input.value.trim(); if(!value) { input.focus(); return; }
+    const empty=$('empty-memory'); if(empty) empty.remove();
+    const tile=document.createElement('article'); tile.className='memory-tile';
+    const heart=document.createElement('div'); heart.className='m-heart'; heart.textContent='♡';
+    const p=document.createElement('p'); p.textContent=value;
+    const small=document.createElement('small'); small.textContent='memory #'+(++memoryCount);
+    tile.append(heart,p,small); $('memory-wall').prepend(tile); input.value=''; input.focus();
+  });
+  $('memory-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('add-memory').click();}});
+
+  // Countdown target uses the visitor's local timezone.
+  const target = new Date(2026,11,24,0,0,0,0).getTime();
+  function updateCountdown(){
+    let diff=target-Date.now();
+    if(diff<=0){$('days').textContent='000';$('hours').textContent='00';$('minutes').textContent='00';$('seconds').textContent='00';$('countdown-message').textContent="It's December 24, 2026 — the date has arrived ♡";return;}
+    const days=Math.floor(diff/86400000); diff-=days*86400000;
+    const hours=Math.floor(diff/3600000); diff-=hours*3600000;
+    const mins=Math.floor(diff/60000); diff-=mins*60000;
+    const secs=Math.floor(diff/1000);
+    $('days').textContent=String(days).padStart(3,'0');$('hours').textContent=String(hours).padStart(2,'0');$('minutes').textContent=String(mins).padStart(2,'0');$('seconds').textContent=String(secs).padStart(2,'0');
+  }
+  updateCountdown(); setInterval(updateCountdown,1000);
+
+  // Reveal fallbacks cleanly if the personal photos/voice-note have not been added yet.
+  document.querySelectorAll('.photo-frame img').forEach(img=>{
+    img.addEventListener('load',()=>img.parentElement.classList.add('has-image'));
+    img.addEventListener('error',()=>img.parentElement.classList.remove('has-image'));
+    if(img.complete && img.naturalWidth>0) img.parentElement.classList.add('has-image');
+  });
+  const voiceAudio=$('voice-audio');
+  voiceAudio.addEventListener('loadedmetadata',()=> $('voice-missing').style.display='none');
+  voiceAudio.addEventListener('loadeddata',()=> $('voice-missing').style.display='none');
+  voiceAudio.addEventListener('error',()=> $('voice-missing').style.display='block');
+  window.addEventListener('pagehide',()=>{ $('private-words').value=''; });
+})();
+</script>
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>
